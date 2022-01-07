@@ -1,0 +1,35 @@
+.navbar {
+  display: flex;
+  align-items: center;
+}
+
+.navbar__brand {
+  font-size: 2rem;
+  font-weight: 700;
+  font-style: italic;
+}
+
+.navbar__brand span {
+  font-size: 1.2rem;
+}
+
+.navbar__list {
+  display: flex;
+  list-style-type: none;
+}
+
+.navbar__link {
+  cursor: pointer;
+  padding: 1.4rem;
+  display: inline-block;
+  text-transform: uppercase;
+  font-weight: 600;
+  font-size: .9rem;
+  letter-spacing: 1.2px;
+  transition: .4s all;
+}
+
+.navbar__link:hover {
+  background: #ecf0f1;
+  color: #e74c3c;
+}

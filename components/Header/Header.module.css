@@ -1,0 +1,28 @@
+.header {
+  padding: 0 2rem;
+}
+
+.info {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.2rem 0;
+  border-bottom: 1px solid #eaeaea;
+}
+
+.address {
+  display: flex;
+}
+
+.address p {
+  margin-right: 1.2rem;
+}
+
+.icon {
+  vertical-align: middle;
+}
+
+.socials a {
+  padding: 0 10px;
+  font-size: 1.2rem;
+}
