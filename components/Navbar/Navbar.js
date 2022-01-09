@@ -1,5 +1,6 @@
 import Link from "next/link";
 import styles from './Navbar.module.css';
+import { FaShoppingCart } from 'react-icons/fa';
 
 const Navbar = () => {
   return (
@@ -7,13 +8,23 @@ const Navbar = () => {
       <div className={styles.navbar__brand}>
         <Link href="/">BikeShop</Link><span>.com</span>
       </div>
-      <ul className={styles.navbar__list}>
+      <div className={styles.navbar__list}>
         <Link href="/products/bikes"><span className={styles.navbar__link}>Homepage</span></Link>
         <Link href="/products/bikes"><span className={styles.navbar__link}>Bikes</span></Link>
         <Link href="/products/bikes"><span className={styles.navbar__link}>Parts</span></Link>
         <Link href="/products/bikes"><span className={styles.navbar__link}>Blog</span></Link>
         <Link href="/products/bikes"><span className={styles.navbar__link}>FAQ</span></Link>
-      </ul>
+      </div>
+      <div className={styles.cart}>
+        <Link href="/">
+          <div className={styles.cart__link}>
+            <div className={styles.cart__counter}>
+              <span>10</span>
+            </div>
+            <FaShoppingCart className={styles.cart__icon} />
+          </div>
+        </Link>
+      </div>
     </nav>
   )
 };

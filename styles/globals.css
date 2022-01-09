@@ -14,3 +14,9 @@ a {
   color: inherit;
   text-decoration: none;
 }
+
+:root {
+  --main-dark: #000000;
+  --main-accent: #e74c3c;
+  --font-light: #ffffff;  
+}

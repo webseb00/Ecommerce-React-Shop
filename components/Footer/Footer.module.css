@@ -1,0 +1,15 @@
+.footer {
+  background: var(--main-dark);
+  color: var(--font-light);
+}
+
+.wrapper {
+  padding: 0 2rem;
+}
+
+.bottom {
+  text-align: center;
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 1.4rem 0;
+}

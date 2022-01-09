@@ -7,6 +7,7 @@
   font-size: 2rem;
   font-weight: 700;
   font-style: italic;
+  flex: 1;
 }
 
 .navbar__brand span {
@@ -16,6 +17,7 @@
 .navbar__list {
   display: flex;
   list-style-type: none;
+  flex: 1;
 }
 
 .navbar__link {
@@ -32,4 +34,36 @@
 .navbar__link:hover {
   background: #ecf0f1;
   color: #e74c3c;
+}
+
+.cart {
+  cursor: pointer;
+  flex: 1;
+  text-align: right;
+}
+
+.cart__link {
+  position: relative;
+}
+
+.cart__counter {
+  position: absolute;
+  right: -15px;
+  top: -12px;
+  background: var(--main-accent);
+  width: 22px;
+  border-radius: 6px;
+  height: 20px;
+  text-align: center;
+  font-size: 15px;
+  z-index: -1;
+}
+
+.cart__icon {
+  font-size: 1.6rem;
+  transition: color .4s;
+}
+
+.cart__icon:hover {
+  color: var(--main-accent);
 }

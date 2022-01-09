@@ -3,6 +3,7 @@ import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 import Link from 'next/link';
 import Header from '../components/Header/Header';
+import Footer from '../components/Footer/Footer';
 import Navbar from '../components/Navbar/Navbar';
 
 export default function Home() {
@@ -25,10 +26,8 @@ export default function Home() {
         
       </main>
 
-      <footer className={styles.footer}>
-
-      </footer>
-    </div>
+      </div>
+      <Footer />
     </>
   )
 }

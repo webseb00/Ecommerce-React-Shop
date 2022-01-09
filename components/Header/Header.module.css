@@ -1,17 +1,21 @@
 .header {
-  padding: 0 2rem;
+  border-bottom: 1px solid #eaeaea;
 }
 
 .info {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 1.2rem 0;
+  padding: .8em 2rem;
   border-bottom: 1px solid #eaeaea;
+  background: var(--main-dark);
+  color: var(--font-light);
+  font-size: .85rem;
 }
 
 .address {
   display: flex;
+  flex-direction: column;
 }
 
 .address p {
@@ -20,9 +24,27 @@
 
 .icon {
   vertical-align: middle;
+  color: var(--main-accent);
 }
 
-.socials a {
-  padding: 0 10px;
-  font-size: 1.2rem;
+.login {
+  display: flex;
+  align-items: center;
+}
+
+.login__icon {
+  font-size: 1.4rem;
+  margin-right: 5px;
+}
+
+.main {
+  padding: 0 2rem;
+}
+
+/* MEDIA QUERIES */
+
+@media (min-width: 890px) {
+  .address {
+    flex-direction: row;
+  }
 }
