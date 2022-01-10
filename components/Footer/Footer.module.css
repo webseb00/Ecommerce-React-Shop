@@ -7,9 +7,131 @@
   padding: 0 2rem;
 }
 
+.newsletter {
+  padding: 3.6rem 2rem 4.4rem 2rem;
+  background: linear-gradient(to right, rgba(0,0,0, .6), rgba(0,0,0, .6)), url('../../public/images/newsletter-bg.jpg') no-repeat fixed center 64%;
+}
+
+.newsletter__title {
+  font-size: 2.2rem;
+  margin-bottom: 1rem;
+  text-align: center;
+
+}
+
+.newsletter__title::after {
+  content: '';
+  display: block;
+  width: 60px;
+  height: 2px;
+  background: var(--main-accent);
+  margin: 1rem auto 1.2rem auto;
+}
+
+.newsletter__form {
+  display: flex;
+  justify-content: center;;
+}
+
+.newsletter__submit {
+  font-size: 1.1rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  padding: .4rem 1.2rem;
+  text-transform: uppercase;
+  border: none;
+  border: 2px solid var(--main-accent);
+  background: var(--main-accent);
+  color: var(--font-light);
+  cursor: pointer;
+  outline: none;
+  transition: all .4s;
+}
+
+.newsletter__submit:hover {
+  background: transparent;
+}
+
+.newsletter__input {
+  font-size: 1.6rem;
+  width: 28rem;
+  text-align: center;
+  padding: .5rem;
+  border: none;
+  outline: none;
+}
+
+.links {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  background: var(--white-color);
+  padding: 2rem;
+  flex-wrap: wrap;
+  text-align: center;
+}
+
+.links__container {
+  padding: 0 1.5rem;
+  color: var(--main-dark);
+  margin-bottom: 1rem;
+}
+
+.links__title {
+  font-size: 1rem;
+  text-transform: uppercase;
+  border-bottom: 1px solid var(--white-color);
+  margin-bottom: .8rem;
+}
+
+.links__title::after {
+  content: '';
+  display: block;
+  width: 30px;
+  height: 2px;
+  background: var(--main-accent);
+  margin: .8rem auto 0 auto;
+}
+
+.links__list {
+  list-style-type: none;
+  
+}
+
+.links__list li {
+  font-size: .9rem;
+  margin-bottom: .2rem;
+}
+
+.links__list li a {
+  transition: color .4s;
+}
+
+.links__list li a:hover {
+  color: var(--main-accent);
+}
+
 .bottom {
   text-align: center;
   font-size: 0.8rem;
   font-weight: 600;
   padding: 1.4rem 0;
+}
+
+/* MEDIA QUERIES */
+
+@media (min-width: 568px) {
+  .links {
+    flex-direction: row;
+  }
+
+  .links__container {
+    flex-basis: 50%;
+  }
+}
+
+@media (min-width: 968px) {
+  .links__container {
+    flex-basis: unset;
+  }
 }
