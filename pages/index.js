@@ -5,6 +5,8 @@ import Link from 'next/link';
 import Header from '../components/Header/Header';
 import Footer from '../components/Footer/Footer';
 import Navbar from '../components/Navbar/Navbar';
+import Bikes from '../components/Bikes/Bikes';
+import Features from '../components/Features/Features';
 
 export default function Home() {
   return (
@@ -20,6 +22,8 @@ export default function Home() {
       <Header>
         <Navbar />
       </Header>
+      <Features />
+      <Bikes />
       <div className={styles.container}>
 
       <main className={styles.main}>

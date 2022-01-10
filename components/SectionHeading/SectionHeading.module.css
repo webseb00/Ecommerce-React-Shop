@@ -1,0 +1,14 @@
+.heading {
+  color: var(--font-light);
+  width: 50%;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.line {
+  display: block;
+  width: 60px;
+  height: 2px;
+  background: var(--main-accent);
+  margin: .8rem auto .8rem auto;
+}
