@@ -1,3 +1,6 @@
+@import "../node_modules/slick-carousel/slick/slick.css"; 
+@import "../node_modules/slick-carousel/slick/slick-theme.css";
+
 *,
 *::before,
 *::after {
@@ -20,4 +23,49 @@ a {
   --main-accent: #e74c3c;
   --font-light: #ffffff;  
   --white-color: #ffffff;
+}
+
+.slick-arrow {
+  background: #d35400;
+  width: 40px;
+  height: 40px;
+  transform: unset;
+  bottom: 0;
+  top: unset;
+  left: unset;
+  transition: all .4s;
+}
+
+.slick-prev:hover,
+.slick-next:hover,
+.slick-prev:focus,
+.slick-next:focus {
+  opacity: .8;
+  background: #d35400;
+}
+
+.slick-prev:focus,
+.slick-next:focus {
+  opacity: 1;
+}
+
+.slick-next {
+  right: 20px;
+  transform: skewX(-10deg);
+}
+
+.slick-prev {
+  z-index: 10;
+  right: 60px;
+  transform: skewX(-10deg);
+}
+
+.slick-prev:before, 
+.slick-next:before {
+  opacity: 1;
+}
+
+.slick-next:before {
+  transform: skewX(10deg);
+  display: block;
 }

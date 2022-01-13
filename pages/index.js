@@ -3,10 +3,11 @@ import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 import Link from 'next/link';
 import Header from '../components/Header/Header';
-import Footer from '../components/Footer/Footer';
 import Navbar from '../components/Navbar/Navbar';
-import Bikes from '../components/Bikes/Bikes';
+import Hero from '../components/Hero/Hero';
 import Features from '../components/Features/Features';
+import Bikes from '../components/Bikes/Bikes';
+import Footer from '../components/Footer/Footer';
 
 export default function Home() {
   return (
@@ -22,6 +23,7 @@ export default function Home() {
       <Header>
         <Navbar />
       </Header>
+      <Hero />
       <Features />
       <Bikes />
       <div className={styles.container}>

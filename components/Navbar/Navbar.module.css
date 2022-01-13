@@ -8,6 +8,7 @@
   font-weight: 700;
   font-style: italic;
   flex: 1;
+  margin: 0 .5rem;
 }
 
 .navbar__brand span {
@@ -29,11 +30,27 @@
   font-size: .9rem;
   letter-spacing: 1.2px;
   transition: .4s all;
+  position: relative;
 }
 
 .navbar__link:hover {
   background: #ecf0f1;
   color: #e74c3c;
+}
+
+.navbar__link::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 0%;
+  height: 2px;
+  background: var(--main-accent);
+  transition: all .4s;
+}
+
+.navbar__link:hover::after {
+  width: 100%;
 }
 
 .cart {
@@ -51,6 +68,7 @@
   right: -15px;
   top: -12px;
   background: var(--main-accent);
+  color: var(--font-light);
   width: 22px;
   border-radius: 6px;
   height: 20px;

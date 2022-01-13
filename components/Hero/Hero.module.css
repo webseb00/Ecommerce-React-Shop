@@ -1,0 +1,25 @@
+.slider {
+  overflow: hidden;
+  margin: 0;
+  line-height: 0;
+}
+
+.slider__title {
+  color: var(--font-light);
+  font-size: 2.5rem;
+}
+
+.slider__title span {
+  color: #2980b9;
+}
+
+.sliderImage {
+  background: url('../../public/images/hero/light_1.jpg') cover no-repeat center center;
+}
+
+
+@media (min-width: 768px) {
+  .slider {
+    margin: 1.2rem;
+  }
+}
