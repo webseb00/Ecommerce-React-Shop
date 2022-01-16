@@ -2,16 +2,8 @@ import styles from './Footer.module.css';
 import Link from 'next/link';
 
 const Footer = () => {
-
   return (
     <footer className={styles.footer}>
-      <div className={styles.newsletter}>
-        <h3 className={styles.newsletter__title}>Want to stay up to date? <br/>So, join our newsletter!</h3>
-        <form className={styles.newsletter__form} method="post">
-          <input type="submit" className={styles.newsletter__submit} value="Join" />
-          <input type="email" name="newsletter" className={styles.newsletter__input} placeholder="example@email.com" required />
-        </form>
-      </div>
       <div className={styles.links}>
         <div className={styles.links__container}>
           <h5 className={styles.links__title}>About Us</h5>

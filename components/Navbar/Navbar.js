@@ -9,8 +9,8 @@ const Navbar = () => {
         <Link href="/">BikeShop</Link><span>.com</span>
       </div>
       <div className={styles.navbar__list}>
-        <Link href="/products/bikes"><span className={styles.navbar__link}>Homepage</span></Link>
-        <Link href="/products/bikes"><span className={styles.navbar__link}>Bikes</span></Link>
+        <Link href="/"><span className={styles.navbar__link}>Homepage</span></Link>
+        <Link href="/products"><span className={styles.navbar__link}>Bikes</span></Link>
         <Link href="/products/bikes"><span className={styles.navbar__link}>Parts</span></Link>
         <Link href="/products/bikes"><span className={styles.navbar__link}>Blog</span></Link>
         <Link href="/products/bikes"><span className={styles.navbar__link}>FAQ</span></Link>

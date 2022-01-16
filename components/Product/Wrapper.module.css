@@ -1,0 +1,23 @@
+.wrapper {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.wrapper__items {
+  display: flex;
+  flex-basis: calc((9/12) * 100%);
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+@media (min-width: 992px) {
+  .wrapper {
+    flex-direction: row;
+    align-items: flex-start;
+  }
+
+  .wrapper__items {
+    justify-content: unset;
+  }
+}

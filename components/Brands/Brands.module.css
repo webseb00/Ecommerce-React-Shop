@@ -1,0 +1,21 @@
+.brands {
+  background: var(--grey-light-color);
+}
+
+.brands__container {
+  padding: 1.5rem 2rem;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.brands__item {
+  width: calc(100% / 3);
+  padding: 0 .5rem;
+}
+
+@media (min-width: 768px) {
+  .brands__item {
+    width: calc(100% / 6);
+  }
+}

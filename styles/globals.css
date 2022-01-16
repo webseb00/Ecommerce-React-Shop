@@ -1,3 +1,4 @@
+@import "https://fonts.googleapis.com/css2?family=Montserrat:wght@100;300;400;600&display=swap";
 @import "../node_modules/slick-carousel/slick/slick.css"; 
 @import "../node_modules/slick-carousel/slick/slick-theme.css";
 
@@ -11,6 +12,7 @@
 
 body {
   font-family: 'Montserrat', sans-serif;
+  background: #FAFAFA;
 }
 
 a {
@@ -23,6 +25,8 @@ a {
   --main-accent: #e74c3c;
   --font-light: #ffffff;  
   --white-color: #ffffff;
+  --grey-light-color: #ecf0f1;
+  --shadow-basic: 0 2px 2px 0 rgb(0 0 0 / 14%), 0 3px 1px -2px rgb(0 0 0 / 20%), 0 1px 5px 0 rgb(0 0 0 / 12%);
 }
 
 .slick-arrow {
@@ -63,9 +67,6 @@ a {
 .slick-prev:before, 
 .slick-next:before {
   opacity: 1;
-}
-
-.slick-next:before {
-  transform: skewX(10deg);
   display: block;
+  transform: skewX(10deg);
 }

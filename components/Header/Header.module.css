@@ -6,6 +6,8 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  flex-direction: column;
+  text-align: center;
   padding: .8em 2rem;
   border-bottom: 1px solid #eaeaea;
   background: var(--main-dark);
@@ -30,6 +32,7 @@
 .login {
   display: flex;
   align-items: center;
+  margin-top: .5rem;
 }
 
 .login__icon {
@@ -42,6 +45,16 @@
 }
 
 /* MEDIA QUERIES */
+
+@media (min-width: 486px) {
+  .info {
+    flex-direction: row;
+  }
+
+  .login {
+    margin-top: .5rem;
+  }
+}
 
 @media (min-width: 890px) {
   .address {
