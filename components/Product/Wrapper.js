@@ -10,6 +10,7 @@ const Wrapper = ({ items }) => {
         {items.map((item, index) => (
           <ProductItem 
             key={index} 
+            id={item.id}
             image={item.image.url} 
             title={item.name}
             price={item.price.formatted_with_code}

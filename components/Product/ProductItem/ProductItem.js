@@ -3,10 +3,13 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { FaCartPlus } from "react-icons/fa";
 
-const ProductItem = ({ image, title, price }) => {
+const ProductItem = ({ id, image, title, price }) => {
   return (
     <div className={styles.item}>
-      <Link href="/">
+      <Link href={{
+        pathname: '/products/product',
+        query: { id }
+      }}>
         <a>
           <Image 
             src={image} 
