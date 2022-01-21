@@ -1,21 +1,20 @@
-import { useState, useEffect } from 'react';
-import { fetchAllProducts } from '../../lib/commerce';
+import { commerce } from '../../lib/commerce';
 import Wrapper from '../../components/Product/Wrapper';
 
-export default function Bikes() {
-  const [items, setItems] = useState([]);
+export async function getStaticProps() {
+  const { data: products } = await commerce.products.list();
 
-  useEffect(() => {
-    const items = fetchAllProducts();
-    items.then(product => {
-      const { data } = product;
-      setItems(data);
-    });
-  }, []);
+  return {
+    props: {
+      products
+    }
+  }
+}
 
+export default function Bikes({ products }) {
   return (
     <>
-      <Wrapper items={items} />
+      <Wrapper items={products} />
     </>
   );
 }

@@ -14,6 +14,7 @@ const Wrapper = ({ items }) => {
             image={item.image.url} 
             title={item.name}
             price={item.price.formatted_with_code}
+            permalink={item.permalink}
           />
         ))}
       </div>
