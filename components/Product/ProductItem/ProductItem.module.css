@@ -11,6 +11,10 @@
   transition: all .4s;
 }
 
+.item:hover {
+  box-shadow: var(--shadow-basic);
+}
+
 .item__price {
   display: block;
   margin: 1rem 0;

@@ -4,9 +4,14 @@
   flex-direction: column;
 }
 
-.wrapper__items {
+.container {
   display: flex;
+  flex-direction: column;
   flex-basis: calc((9/12) * 100%);
+}
+
+.container__items {
+  display: flex;
   flex-wrap: wrap;
   justify-content: center;
 }
@@ -17,7 +22,7 @@
     align-items: flex-start;
   }
 
-  .wrapper__items {
+  .container__items {
     justify-content: unset;
   }
 }

@@ -14,7 +14,10 @@ const Bikes = () => {
         description="There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable."
       />
       <div className={styles.bikes__container}>
-        <Link href="/products/downhill">
+        <Link href={{
+          pathname: '/categories/[slug]',
+          query: { slug: 'downhill' }
+        }}>
           <a className={styles.bikes__item}>
             <h4 className={styles.bikes__title}>Downhill</h4>
             <Image 
@@ -26,7 +29,10 @@ const Bikes = () => {
             />
           </a>
         </Link>
-        <Link href="/">
+        <Link href={{
+          pathname: '/categories/[slug]',
+          query: { slug: 'cross-country' }
+        }}>
           <a className={styles.bikes__item}>
             <h4 className={styles.bikes__title}>Cross Country</h4>
             <Image 
@@ -39,7 +45,10 @@ const Bikes = () => {
             />
           </a>
         </Link>
-        <Link href="/">
+        <Link href={{
+          pathname: '/categories/[slug]',
+          query: { slug: 'road-bikes' }
+        }}>
           <a className={styles.bikes__item}>
             <h4 className={styles.bikes__title}>Roads</h4>
             <Image 

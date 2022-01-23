@@ -3,7 +3,6 @@ import ProductPage from '../../components/Product/ProductPage/ProductPage';
 
 export async function getStaticProps({ params }) {
   const { permalink } = params;
-
   const product = await commerce.products.retrieve(permalink, { type: 'permalink' });
   
   return {

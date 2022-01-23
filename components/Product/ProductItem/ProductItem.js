@@ -6,7 +6,7 @@ import { FaCartPlus } from "react-icons/fa";
 const ProductItem = ({ image, title, price, permalink }) => {
   return (
     <div className={styles.item}>
-      <Link href={`/products/${permalink}`}>
+      <Link href={`/bikes/${permalink}`}>
         <a>
           <Image 
             src={image} 

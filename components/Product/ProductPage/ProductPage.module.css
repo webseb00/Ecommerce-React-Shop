@@ -104,7 +104,6 @@
 /* ------ THUMBNAIL GALLERY STYLES ------- */
 
 .thumbnail {
-  /* width: 500px; */
   list-style-type: none;
   display: flex;
 }
@@ -142,7 +141,7 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  max-width: 600px;
+  max-width: 560px;
   width: 100%;
 }
 

@@ -1,6 +1,7 @@
 .navbar {
   display: flex;
   align-items: center;
+  z-index: 999;
 }
 
 .navbar__brand {
@@ -51,6 +52,50 @@
 
 .navbar__link:hover::after {
   width: 100%;
+}
+
+.navbar__link_icon {
+  display: flex;
+  align-items: center;
+}
+
+.navbar__icon {
+  margin-left: 5px;
+}
+
+.dropdown {
+  position: relative;
+}
+
+.dropdown__list {
+  position: absolute;
+  background: white;
+  left: 0;
+  width: 200%;
+  list-style-type: none;
+  white-space: nowrap;
+  box-shadow: var(--shadow-basic);
+  transition: opacity .8s;
+  opacity: 0;
+  visibility: hidden;
+  z-index: 99;
+}
+
+.dropdown__link {
+  font-size: 1rem;
+  transition: background .4s;
+  padding: 10px 15px;
+  display: block;
+}
+
+.dropdown__link:hover {
+  background: #ecf0f1; 
+  color: var(--main-accent);
+}
+
+.dropdown:hover .dropdown__list {
+  opacity: 1;
+  visibility: visible;
 }
 
 .cart {
