@@ -2,7 +2,6 @@ import { BsCaretLeft, BsCaretRight } from 'react-icons/bs';
 import styles from './Pagination.module.css';
 
 const Pagination = ({ totalPages, setCurrentPage, currentPage }) => {
-
   const handlePrevious = e => {
     e.preventDefault();
     if(currentPage === 1) return;

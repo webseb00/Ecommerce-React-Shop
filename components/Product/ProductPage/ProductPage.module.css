@@ -51,6 +51,13 @@
   border-bottom: 1px solid #cecece;
 }
 
+.product__text_danger {
+  text-transform: uppercase;
+  color: #c0392b;
+  margin: 1rem 0;
+  font-size: 1rem;
+}
+
 .product__button_back,
 .product__button_cart {
   padding: 1rem 1.5rem;

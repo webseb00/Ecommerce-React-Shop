@@ -23,6 +23,8 @@ a {
 :root {
   --main-dark: #000000;
   --main-accent: #e74c3c;
+  --danger-red: #c0392b;
+  --success-green: #27ae60;
   --font-light: #ffffff;  
   --white-color: #ffffff;
   --grey-light-color: #ecf0f1;

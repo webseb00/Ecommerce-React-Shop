@@ -1,0 +1,52 @@
+.alert {
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  right: 10px;
+  border-radius: 5px;
+  padding: 1.5rem 1rem;
+  color: var(--white-color);
+  box-shadow: var(--shadow-basic);
+  z-index: 99;
+}
+
+.alert__success {
+  background: var(--success-green);
+}
+
+.alert__danger {
+  background: var(--danger-red);
+}
+
+.alert__close {
+  position: absolute;
+  top: 0;
+  right: 0;
+  outline: none;
+  border: none;
+  color: var(--white-color);
+  background: none;
+  font-size: 30px;
+  cursor: pointer;
+}
+
+.alert__close svg {
+  display: block;
+}
+
+.alert__content {
+  margin: .5rem;
+}
+
+.alert__content svg {
+  vertical-align: middle;
+  font-size: 34px;
+}
+
+@media (min-width: 768px) {
+  .alert {
+    top: 10px;
+    right: 10px;
+    left: unset;
+  }
+}

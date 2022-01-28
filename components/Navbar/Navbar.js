@@ -1,9 +1,13 @@
 import Link from "next/link";
 import styles from './Navbar.module.css';
-import { FaShoppingCart } from 'react-icons/fa';
+import { BsHandbag } from 'react-icons/bs';
 import { BsCaretDownFill } from 'react-icons/bs';
+import { useCartState } from '../../context/cart';
 
 const Navbar = () => {
+
+  const state = useCartState();
+  
   return (
     <nav className={styles.navbar}>
       <div className={styles.navbar__brand}>
@@ -60,12 +64,12 @@ const Navbar = () => {
         </li>
       </ul>
       <div className={styles.cart}>
-        <Link href="/">
+        <Link href="/checkout">
           <div className={styles.cart__link}>
-            <div className={styles.cart__counter}>
-              <span>10</span>
-            </div>
-            <FaShoppingCart className={styles.cart__icon} />
+            <BsHandbag className={styles.cart__icon} />
+            <span className={styles.cart__counter}>
+              {state.total_unique_items}
+            </span>
           </div>
         </Link>
       </div>
