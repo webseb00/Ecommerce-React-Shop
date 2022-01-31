@@ -5,8 +5,10 @@ const CartStateContext = createContext();
 const CartDispatchContext = createContext();
 
 const SET_CART = 'SET_CART';
+const SET_CHECKOUT_TOKEN = 'SET_CHECKOUT_TOKEN';
 
 const initialState = {
+  checkoutToken: {},
   total_items: 0,
   total_unique_items: 0,
   line_items: []
@@ -16,6 +18,8 @@ const reducer = (state, action) => {
   switch(action.type) {
     case SET_CART:
       return { ...state, ...action.payload };
+    case SET_CHECKOUT_TOKEN:
+      return { ...state, checkoutToken: action.payload }
     default:
       throw new Error(`Unknown action: ${action.type}`);
   }
@@ -28,15 +32,17 @@ export function CartProvider({ children }) {
     getCart();
   }, []);
 
+  const setCheckoutToken = token => {
+    dispatch({ type: SET_CHECKOUT_TOKEN, payload: token });
+  }
+
   const setCart = cart => {
-    console.log(cart);
     dispatch({ type: SET_CART, payload: cart });
   }
 
   const getCart = async () => {
     try {
       const cart = await commerce.cart.retrieve();
-      console.log(cart);
       setCart(cart);
     } catch(err) {
       console.log('An error occurred');
@@ -44,7 +50,7 @@ export function CartProvider({ children }) {
   }
 
   return (
-    <CartDispatchContext.Provider value={{ setCart }}>
+    <CartDispatchContext.Provider value={{ setCart, setCheckoutToken }}>
       <CartStateContext.Provider value={state}>
         {children}
       </CartStateContext.Provider>
