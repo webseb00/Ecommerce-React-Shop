@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 import { commerce } from '../../lib/commerce';
 import { useForm } from "react-hook-form";
-import { BsArrowLeft } from 'react-icons/bs';
-import styles from './AddressForm.module.css';
+import { BsArrowLeft, BsFillPersonFill, BsTruck } from 'react-icons/bs';
+import styles from './Checkout.module.css';
 import button from './Cart.module.css';
 
 const AddressForm = ({ handleStepBackward, handleStepForward, checkoutTokenID, setFormData, formData }) => {
@@ -17,7 +17,16 @@ const AddressForm = ({ handleStepBackward, handleStepForward, checkoutTokenID, s
     shippingOption: ''
   });
 
-  const { register, handleSubmit, watch, formState: { errors } } = useForm();
+  const { register, handleSubmit, watch, formState: { errors } } = useForm({
+    defaultValues: {
+      firstName: formData.firstName || '',
+      lastName: formData.lastName || '',
+      email: formData.email || '',
+      street: formData.street || '',
+      zipCode: formData.zipCode || '',
+      city: formData.city || ''
+    }
+  });
 
   const onSubmit = data => {
     if(data) {
@@ -75,7 +84,10 @@ const AddressForm = ({ handleStepBackward, handleStepForward, checkoutTokenID, s
       <div className={styles.form__container}>
         <div className={styles.form__group}>
           <div className={styles.heading}>
-            <h3 className={styles.heading__title}>Customer Information</h3>
+            <h3 className={styles.heading__title}>
+              <BsFillPersonFill className={styles.heading__icon} />
+              Personal Information
+            </h3>
             <span className={styles.heading__line}></span>
           </div>
           <div className={styles.form__input_group}>
@@ -92,7 +104,6 @@ const AddressForm = ({ handleStepBackward, handleStepForward, checkoutTokenID, s
               {...register('lastName', { required: true, pattern: /^[a-zA-Z]+$/ })}
               className={`${styles.form__input} ${errors.lastName && styles.error}`} 
               placeholder="Last name *" 
-              value={formData && formData.lastName}
             />
           </div>
           <div className={styles.form__input_group}>
@@ -102,12 +113,6 @@ const AddressForm = ({ handleStepBackward, handleStepForward, checkoutTokenID, s
               className={`${styles.form__input} ${errors.email && styles.error}`} 
               placeholder="Email *" 
             />
-          </div>
-        </div>
-        <div className={styles.form__group}>
-          <div className={styles.heading}>
-            <h3 className={styles.heading__title}>Shipping Information</h3>
-            <span className={styles.heading__line}></span>
           </div>
           <div className={styles.form__input_group}>
             <input 
@@ -132,6 +137,15 @@ const AddressForm = ({ handleStepBackward, handleStepForward, checkoutTokenID, s
               className={`${styles.form__input} ${errors.city && styles.error}`} 
               placeholder="City *" 
             />
+          </div>
+        </div>
+        <div className={styles.form__group}>
+          <div className={styles.heading}>
+            <h3 className={styles.heading__title}>
+              <BsTruck className={styles.heading__icon} />
+              Shipping Information
+              </h3>
+            <span className={styles.heading__line}></span>
           </div>
           <div className={styles.form__input_group}>
             <select
@@ -189,48 +203,6 @@ const AddressForm = ({ handleStepBackward, handleStepForward, checkoutTokenID, s
             </select>
           </div>  
         </div>
-        <div className={styles.form__group}>
-          <div className={styles.heading}>
-            <h3 className={styles.heading__title}>Payment Information</h3>
-            <span className={styles.heading__line}></span>
-          </div>
-          <div className={styles.form__input_group}>
-            <input 
-              type="number" 
-              {...register('cardNumber', { required: true, pattern: /^[0-9]{16}$/ })}
-              className={`${styles.form__input} ${errors.cardNumber && styles.error}`} 
-              placeholder="Credit Card Number" 
-            />
-          </div>
-          <div className={styles.form__input_group}>
-            <input 
-              type="number" 
-              min="2022"
-              {...register('expiryYear', { required: true, pattern: /^[0-9]{4}$/ })}
-              className={`${styles.form__input} ${errors.expiryYear && styles.error}`} 
-              placeholder="Expiry Year" 
-            />
-          </div>
-          <div className={styles.form__input_group}>
-            <input 
-              type="number" 
-              min="1"
-              max="12"
-              {...register('expiryMonth', { required: true, pattern: /^[0-9]{1,2}$/ })}
-              className={`${styles.form__input} ${errors.expiryMonth && styles.error}`} 
-              placeholder="Expiry Month" 
-            />
-          </div>
-          <div className={styles.form__input_group}>
-            <input 
-              type="number" 
-              max="999"
-              {...register('CVC', { required: true, pattern: /^[0-9]{3}$/ })}
-              className={`${styles.form__input} ${errors.CVC && styles.error}`} 
-              placeholder="CVC" 
-            />
-          </div>
-        </div>
       </div>
       <div className={styles.form__control}>
         <button 
@@ -245,7 +217,7 @@ const AddressForm = ({ handleStepBackward, handleStepForward, checkoutTokenID, s
           type="submit" 
           className={`${button.button__cta} ${button.button__cta_continue}`}
         >
-          Summary
+          Payment &amp; Summary 
         </button>
       </div>
     </form>

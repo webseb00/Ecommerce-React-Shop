@@ -3,7 +3,7 @@ import { useCartState, useCartDispatch } from '../../context/cart';
 import Cart from './Cart';
 import AddressForm from './AddressForm';
 import Summary from './Summary';
-import styles from './Main.module.css';
+import styles from './Checkout.module.css';
 import { commerce } from '../../lib/commerce';
 
 const Main = () => {
@@ -44,6 +44,7 @@ const Main = () => {
           handleStepForward={handleIncreaseCounter}
           checkoutTokenID={state.checkoutToken.id} 
           setFormData={setFormData}
+          formData={formData}
           /> );
       case 2:
         return <Summary 

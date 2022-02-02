@@ -193,7 +193,6 @@
   background: #27ae60;
   border: 1px solid #27ae60;
   color: var(--white-color);
-  text-transform: uppercase;
   letter-spacing: 1px;
   box-shadow: var(--shadow-basic);
 }
