@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import { BsArrowLeft, BsFillPersonFill, BsTruck } from 'react-icons/bs';
 import styles from './Checkout.module.css';
 import button from './Cart.module.css';
+import OrderPreview from './OrderPreview';
 
 const AddressForm = ({ handleStepBackward, handleStepForward, checkoutTokenID, setFormData, formData }) => {
 

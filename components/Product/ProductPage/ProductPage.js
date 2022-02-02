@@ -1,4 +1,4 @@
-import { useState, useContext } from 'react';
+import { useState } from 'react';
 import { useRouter } from 'next/router';
 import { FaArrowLeft , FaCartPlus } from 'react-icons/fa';
 import { AiOutlineCloseCircle } from 'react-icons/ai';
@@ -9,7 +9,7 @@ import Alert from '../../Alert/Alert';
 import styles from './ProductPage.module.css';
 
 const ProductPage = ({ product }) => {
-  const { id, name, image, price, inventory, description, assets } = product;
+  const { id, name, price, inventory, description, assets } = product;
 
   const [counter, setCounter] = useState(0);
   const [thumbnail, setThumbnail] = useState(assets[counter]);

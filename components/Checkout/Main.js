@@ -5,6 +5,7 @@ import AddressForm from './AddressForm';
 import Summary from './Summary';
 import styles from './Checkout.module.css';
 import { commerce } from '../../lib/commerce';
+import Wrapper from './Wrapper';
 
 const Main = () => {
 
@@ -39,19 +40,25 @@ const Main = () => {
     switch(step) {
       case 1:
         return (state.checkoutToken && 
-        <AddressForm 
-          handleStepBackward={handleDecreaseCounter} 
-          handleStepForward={handleIncreaseCounter}
-          checkoutTokenID={state.checkoutToken.id} 
-          setFormData={setFormData}
-          formData={formData}
-          /> );
+          <Wrapper>
+            <AddressForm 
+              handleStepBackward={handleDecreaseCounter} 
+              handleStepForward={handleIncreaseCounter}
+              checkoutTokenID={state.checkoutToken.id} 
+              setFormData={setFormData}
+              formData={formData} 
+            />
+          </Wrapper>);
       case 2:
-        return <Summary 
-                data={formData} 
-                handleOrderProcessing={handleOrderProcessing} 
-                handleStepBackward={handleDecreaseCounter}
-                />
+        return (
+          <Wrapper>
+            <Summary 
+              data={formData} 
+              handleOrderProcessing={handleOrderProcessing} 
+              handleStepBackward={handleDecreaseCounter}
+              />
+          </Wrapper>
+        )
       default:
         return <Cart handleStepForward={handleIncreaseCounter} />;
     }
