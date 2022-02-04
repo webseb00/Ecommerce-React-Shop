@@ -3,49 +3,82 @@ import styles from './Checkout.module.css';
 import button from './Cart.module.css';
 import { BsArrowLeft, BsPaypal } from 'react-icons/bs';
 
-const Summary = ({ data, handleOrderProcessing, handleStepBackward }) => {
+const Summary = ({ formData, setData, handleOrderProcessing, handleStepBackward }) => {
 
   const { register, handleSubmit, watch, formState: { errors } } = useForm();
-
-  let shippingCountryFullName = '';
-  let shippingProvinceFullName = '';
-  let shippingOptionFullName = '';
-
-  const { firstName, lastName, email, street, zipCode, city, shippingCountries, shippingCountry, shippingSubdivisions, shippingStateProvince, shippingOptions, shippingOption } = data;
-
-  Object.keys(shippingCountries).forEach(key =>  {
-    if(key === shippingCountry) {
-      shippingCountryFullName = shippingCountries[key];
+  const { firstName, lastName, email, street, zipCode, city, shippingCountries, shippingCountry, shippingSubdivisions, shippingStateProvince, shippingOptions, shippingOption } = formData;
+  
+  const getFullName = (arr, item) => {
+    let getValue = '';
+    if(arr) {
+      Object.keys(arr).forEach(key => {
+        if(key === item) getValue = arr[key];
+      });
     }
-  });
 
-  Object.keys(shippingSubdivisions).forEach(key => {
-    if(key === shippingStateProvince) {
-      shippingProvinceFullName = shippingSubdivisions[key];
-    }
-  });
+    return getValue;
+  }
 
-  const option = shippingOptions.filter(option => option.id === shippingOption);
+  const countryFullName = getFullName(shippingCountries, shippingCountry);
+  const provinceFullName = getFullName(shippingSubdivisions, shippingStateProvince);
 
+  const onSubmit = async data => {
+    handleOrderProcessing(data);
+  }
   
   return (
     <>
       <div className={styles.summary}>
-        <div>
-          <div className={styles.form__group}>
-            <div className={styles.heading}>
-              <h3 className={styles.heading__title}>
-                <BsPaypal className={styles.heading__icon} />
-                Payment Information
-              </h3>
-              <span className={styles.heading__line}></span>
-            </div>
+        <div className={styles.summary__item}>
+          <div className={styles.heading}>
+            <h3 className={styles.heading__title}>
+              Personal Information
+            </h3>
+            <span className={styles.heading__line}></span>
+          </div>
+          <div className={styles.summary__box}>
+            <span>Full Name</span>
+            <p>{firstName} {lastName}</p>
+          </div>
+          <div className={styles.summary__box}>
+            <span>Email address</span>
+            <p>{email}</p>
+          </div>
+          <div className={styles.summary__box}>
+            <span>Shipping Address</span>
+            <p>{street},<br />
+            {city} {zipCode},<br />
+            {provinceFullName},<br />
+            {countryFullName}
+            </p>
+          </div>
+          <div className={styles.summary__box}>
+            <span>Shipping Method</span>
+            <p>{shippingOption.description} - {shippingOption.price.formatted_with_code}</p>
+          </div>
+        </div>
+        <div className={styles.summary__item}>
+          <div className={styles.heading}>
+            <h3 className={styles.heading__title}>
+              <BsPaypal className={styles.heading__icon} />
+              Payment Details
+            </h3>
+            <span className={styles.heading__line}></span>
+          </div>
+          <form>
             <div className={styles.form__input_group}>
               <input 
                 type="number" 
                 {...register('cardNumber', { required: true, pattern: /^[0-9]{16}$/ })}
                 className={`${styles.form__input} ${errors.cardNumber && styles.error}`} 
                 placeholder="Credit Card Number" 
+              />
+              <input 
+                type="number" 
+                max="999"
+                {...register('CVC', { required: true, pattern: /^[0-9]{3}$/ })}
+                className={`${styles.form__input} ${errors.CVC && styles.error}`} 
+                placeholder="CVC"
               />
             </div>
             <div className={styles.form__input_group}>
@@ -56,8 +89,6 @@ const Summary = ({ data, handleOrderProcessing, handleStepBackward }) => {
                 className={`${styles.form__input} ${errors.expiryYear && styles.error}`} 
                 placeholder="Expiry Year" 
               />
-            </div>
-            <div className={styles.form__input_group}>
               <input 
                 type="number" 
                 min="1"
@@ -67,16 +98,7 @@ const Summary = ({ data, handleOrderProcessing, handleStepBackward }) => {
                 placeholder="Expiry Month" 
               />
             </div>
-            <div className={styles.form__input_group}>
-              <input 
-                type="number" 
-                max="999"
-                {...register('CVC', { required: true, pattern: /^[0-9]{3}$/ })}
-                className={`${styles.form__input} ${errors.CVC && styles.error}`} 
-                placeholder="CVC"
-              />
-            </div>
-          </div>  
+          </form>
         </div> 
       </div>
       <div className={styles.form__control}>
@@ -91,6 +113,7 @@ const Summary = ({ data, handleOrderProcessing, handleStepBackward }) => {
         <button 
           type="submit" 
           className={`${button.button__cta} ${button.button__cta_continue}`}
+          onClick={() => handleSubmit(onSubmit)()}
         >
           Confirm Order
         </button>

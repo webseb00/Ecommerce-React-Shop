@@ -49,8 +49,17 @@ export function CartProvider({ children }) {
     }
   }
 
+  const refreshCart = async () => {
+    try {
+      const newCart = await commerce.cart.refresh();
+      setCart(newCart);
+    } catch(err) {
+      console.log(`There was an error refreshing the cart ${err}.`);
+    }
+  }
+
   return (
-    <CartDispatchContext.Provider value={{ setCart, setCheckoutToken }}>
+    <CartDispatchContext.Provider value={{ setCart, setCheckoutToken, refreshCart }}>
       <CartStateContext.Provider value={state}>
         {children}
       </CartStateContext.Provider>

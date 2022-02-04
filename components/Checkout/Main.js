@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useRouter } from 'next/router';
 import { useCartState, useCartDispatch } from '../../context/cart';
 import Cart from './Cart';
 import AddressForm from './AddressForm';
@@ -9,12 +10,30 @@ import Wrapper from './Wrapper';
 
 const Main = () => {
 
+  const [orderProcessing, setOrderProcessing] = useState(false);
+  const [lineItems, setLineItems] = useState({});
   const [formData, setFormData] = useState({});
-  const { setCheckoutToken } = useCartDispatch();
-  const state  = useCartState();
+
+  const router = useRouter();
+
+  const { setCheckoutToken, refreshCart } = useCartDispatch();
+  const state = useCartState();
 
   useEffect(() => {
     generateCheckoutToken();
+
+    let lineItems = {};
+
+    state.line_items.forEach(item => {
+      lineItems = {
+        ...lineItems,
+        [item.id]: {
+          quantity: item.quantity
+        }
+      }
+    });
+
+    setLineItems(lineItems);
   }, []);
 
   const generateCheckoutToken = async () => {
@@ -28,10 +47,68 @@ const Main = () => {
     }
   }
 
-  const handleOrderProcessing = () => {
-    let data = {};
+  const handleOrderProcessing = async payment => {
+    let final = {};
+
+    setOrderProcessing(true);
+
+    final.line_items = lineItems;
+
+    final.fulfillment = {
+      shipping_method: formData.shippingOption.id 
+    }
+
+    final.customer = {
+      firstname: formData.firstName,
+      lastname: formData.lastname,
+      email: formData.email
+    }
+
+    final.shipping = {
+      name: `${formData.firstName} ${formData.lastName}`,
+      street: formData.street,
+      town_city: formData.city,
+      county_state: formData.shippingStateProvince,
+      postal_zip_code: formData.zipCode,
+      country: formData.shippingCountry
+    }
+
+    final.billing = {
+      name: `${formData.firstName} ${formData.lastName}`,
+      street: formData.street,
+      town_city: formData.city,
+      county_state: formData.shippingStateProvince,
+      postal_zip_code: formData.zipCode,
+      country: formData.shippingCountry
+    }
+
+    final.payment = {
+      gateway: 'test_gateway',
+      card: {
+        number: payment.cardNumber,
+        expiry_month: payment.expiryMonth,
+        expiry_year:  payment.expiryYear,
+        cvc: payment.CVC,
+        postal_zip_code: formData.zipCode
+      }
+    }
+
+    try {
+      const res = await commerce.checkout.capture(state.checkoutToken.id, final);
+
+      setOrderProcessing(false);
+      refreshCart();
+      localStorage.setItem('receipt', JSON.stringify(res));
+
+      router.push('/confirmation');
+    } catch(err) {
+      window.alert(err.data.error.message);
+      setOrderProcessing(false);
+    }   
   }
 
+  const shippingCost = formData.shippingOptions ? formData.shippingOptions.filter(item => item.id === formData.shippingOption) : '';
+  
   const [counter, setCounter] = useState(0);
   const handleIncreaseCounter = () => setCounter(counter + 1);
   const handleDecreaseCounter = () => setCounter(counter - 1);
@@ -40,7 +117,9 @@ const Main = () => {
     switch(step) {
       case 1:
         return (state.checkoutToken && 
-          <Wrapper>
+          <Wrapper
+            shippingCost={shippingCost}
+          >
             <AddressForm 
               handleStepBackward={handleDecreaseCounter} 
               handleStepForward={handleIncreaseCounter}
@@ -51,9 +130,12 @@ const Main = () => {
           </Wrapper>);
       case 2:
         return (
-          <Wrapper>
+          <Wrapper
+            shippingCost={shippingCost}
+          >
             <Summary 
-              data={formData} 
+              formData={formData}
+              setData={setFormData} 
               handleOrderProcessing={handleOrderProcessing} 
               handleStepBackward={handleDecreaseCounter}
               />

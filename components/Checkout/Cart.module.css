@@ -158,7 +158,8 @@
   padding: 1rem 1.5rem;
   cursor: pointer;
   transition: all .4s;
-  border-radius: 5px;
+  width: 100%;
+  max-width: 16rem;
 }
 
 .button__cta_clear {
@@ -200,6 +201,11 @@
 .button__cta_continue:hover {
   background: transparent;
   color: #27ae60;
+}
+
+.button__disabled {
+  opacity: .4;
+  pointer-events: none;
 }
 
 .mr_5 {

@@ -3,7 +3,7 @@ import { BsX } from 'react-icons/bs';
 import styles from './OrderPreview.module.css';
 import Image from 'next/image';
 
-const OrderPreview = () => {
+const OrderPreview = ({ shippingCost }) => {
 
   const state = useCartState();
   const { subtotal } = state;
@@ -34,14 +34,17 @@ const OrderPreview = () => {
         )}
       </ul>
       <div className={styles.total}>
-        <div className={styles.total__sub}>
+        {/* <div className={styles.total__sub}>
           <p>Subtotal:</p>
           <p>{subtotal.formatted_with_code}</p>
         </div>
-        <div className={styles.total__sub}>
-          <p>Shipping:</p>
-          <p>Free</p>
-        </div>
+        {
+          shippingCost && 
+          <div className={styles.total__sub}>
+            <p>Shipping:</p>
+            <p>{shippingCost[0].price.formatted_with_code}</p>
+          </div>
+        } */}
         <div className={styles.total__main}>
           <p>Subtotal:</p>
           <p>{subtotal.formatted_with_code}</p>
