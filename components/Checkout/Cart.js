@@ -7,32 +7,33 @@ import { BsX, BsEmojiSmile, BsArrowLeft } from 'react-icons/bs';
 const Cart = ({ handleStepForward }) => {
   const state = useCartState();
   const { setCart } = useCartDispatch();
+
   const handleUpdateCart = cart => setCart(cart);
 
   const router = useRouter();
-
+  
   const handleDelete = async id => {
-    const res = await commerce.cart.remove(id);
-    handleUpdateCart(res.cart);
+    const { cart } = await commerce.cart.remove(id);
+    handleUpdateCart(cart);
   }
 
   const increaseQuantity = async (id, quantity) => {
-    const res = await commerce.cart.update(id, { quantity: quantity + 1 });
-    handleUpdateCart(res.cart);
+    const { cart } = await commerce.cart.update(id, { quantity: quantity + 1 });
+    handleUpdateCart(cart);
   }
 
   const decreaseQuantity = async (id, quantity) => {
     if(quantity > 1) {
-      const res = await commerce.cart.update(id, { quantity: quantity - 1 });
-      handleUpdateCart(res.cart);
+      const { cart } = await commerce.cart.update(id, { quantity: quantity - 1 });
+      handleUpdateCart(cart);
     } else {
       handleDelete(id);
     }
   }
 
   const handleClearCart = async () => {
-    const res = await commerce.cart.empty();
-    handleUpdateCart(res.cart);
+    const { cart } = await commerce.cart.empty();
+    handleUpdateCart(cart);
   }
 
   const displayItems = () => {

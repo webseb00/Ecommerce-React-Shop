@@ -16,7 +16,7 @@ const Main = () => {
 
   const router = useRouter();
 
-  const { setCheckoutToken, refreshCart } = useCartDispatch();
+  const { setCheckoutToken, refreshCart, setCart } = useCartDispatch();
   const state = useCartState();
 
   useEffect(() => {
@@ -95,19 +95,16 @@ const Main = () => {
 
     try {
       const res = await commerce.checkout.capture(state.checkoutToken.id, final);
-
       setOrderProcessing(false);
       refreshCart();
-      localStorage.setItem('receipt', JSON.stringify(res));
 
+      localStorage.setItem('receipt', JSON.stringify(res));
       router.push('/confirmation');
     } catch(err) {
       window.alert(err.data.error.message);
       setOrderProcessing(false);
     }   
   }
-
-  const shippingCost = formData.shippingOptions ? formData.shippingOptions.filter(item => item.id === formData.shippingOption) : '';
   
   const [counter, setCounter] = useState(0);
   const handleIncreaseCounter = () => setCounter(counter + 1);
@@ -117,9 +114,7 @@ const Main = () => {
     switch(step) {
       case 1:
         return (state.checkoutToken && 
-          <Wrapper
-            shippingCost={shippingCost}
-          >
+          <Wrapper>
             <AddressForm 
               handleStepBackward={handleDecreaseCounter} 
               handleStepForward={handleIncreaseCounter}
@@ -130,19 +125,18 @@ const Main = () => {
           </Wrapper>);
       case 2:
         return (
-          <Wrapper
-            shippingCost={shippingCost}
-          >
+          <Wrapper>
             <Summary 
               formData={formData}
-              setData={setFormData} 
               handleOrderProcessing={handleOrderProcessing} 
               handleStepBackward={handleDecreaseCounter}
               />
           </Wrapper>
         )
       default:
-        return <Cart handleStepForward={handleIncreaseCounter} />;
+        return <Cart 
+                handleStepForward={handleIncreaseCounter}
+                />;
     }
   }
 

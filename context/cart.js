@@ -11,7 +11,8 @@ const initialState = {
   checkoutToken: {},
   total_items: 0,
   total_unique_items: 0,
-  line_items: []
+  line_items: [],
+  total: 0
 }
 
 const reducer = (state, action) => {

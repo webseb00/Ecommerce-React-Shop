@@ -3,11 +3,11 @@ import styles from './Checkout.module.css';
 import button from './Cart.module.css';
 import { BsArrowLeft, BsPaypal } from 'react-icons/bs';
 
-const Summary = ({ formData, setData, handleOrderProcessing, handleStepBackward }) => {
+const Summary = ({ formData, handleOrderProcessing, handleStepBackward }) => {
 
   const { register, handleSubmit, watch, formState: { errors } } = useForm();
   const { firstName, lastName, email, street, zipCode, city, shippingCountries, shippingCountry, shippingSubdivisions, shippingStateProvince, shippingOptions, shippingOption } = formData;
-  
+
   const getFullName = (arr, item) => {
     let getValue = '';
     if(arr) {
@@ -22,9 +22,9 @@ const Summary = ({ formData, setData, handleOrderProcessing, handleStepBackward 
   const countryFullName = getFullName(shippingCountries, shippingCountry);
   const provinceFullName = getFullName(shippingSubdivisions, shippingStateProvince);
 
-  const onSubmit = async data => {
-    handleOrderProcessing(data);
-  }
+  const getShippingOption = shippingOptions.filter(item => item.id === shippingOption);
+
+  const onSubmit = data => handleOrderProcessing(data);
   
   return (
     <>
@@ -54,7 +54,7 @@ const Summary = ({ formData, setData, handleOrderProcessing, handleStepBackward 
           </div>
           <div className={styles.summary__box}>
             <span>Shipping Method</span>
-            <p>{shippingOption.description} - {shippingOption.price.formatted_with_code}</p>
+            <p>{getShippingOption[0].description} - {getShippingOption[0].price.formatted_with_code}</p>
           </div>
         </div>
         <div className={styles.summary__item}>

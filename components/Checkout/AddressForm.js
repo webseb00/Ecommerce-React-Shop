@@ -1,11 +1,16 @@
 import { useState, useEffect } from 'react';
 import { commerce } from '../../lib/commerce';
 import { useForm } from "react-hook-form";
+import { useCartDispatch, useCartState } from '../../context/cart';
 import { BsArrowLeft, BsFillPersonFill, BsTruck } from 'react-icons/bs';
 import styles from './Checkout.module.css';
 import button from './Cart.module.css';
 
-const AddressForm = ({ handleStepBackward, handleStepForward, checkoutTokenID, setFormData, formData }) => {
+const AddressForm = ({ handleStepBackward, handleStepForward, setFormData, formData }) => {
+
+  const { setCart } = useCartDispatch();
+  const state = useCartState();
+  const checkoutTokenID = state.checkoutToken.id;
 
   const [form, setForm] = useState({
     shippingStateProvince: '',
@@ -56,7 +61,7 @@ const AddressForm = ({ handleStepBackward, handleStepForward, checkoutTokenID, s
   const fetchShippingCountries = async checkoutTokenId => {
     try { 
       const { countries } = await commerce.services.localeListShippingCountries(checkoutTokenId);
-      setForm({ ...form, shippingCountries: countries, shippingCountry: Object.keys(countries)[0] });
+      setForm({ ...form, shippingCountries: countries, shippingCountry: Object.keys(countries)[0], shippingOptions: [], shippingOption: '' });
     } catch(err) {
       console.log('An error occurred');
     }
@@ -77,13 +82,32 @@ const AddressForm = ({ handleStepBackward, handleStepForward, checkoutTokenID, s
         country: country,
         region: stateProvince
       });
-      setForm({ ...form, shippingOptions: res, shippingOption: res[0] });
+      setForm({ ...form, shippingOptions: res, shippingOption: res[0].id });
+      setShippingOption(res[0].id);
     } catch(err) {
       console.log('An error occured');
     }
   }
 
-  const handleShippingOptions = e => setForm({ ...form, [e.target.name]: e.target.value });
+  const handleShippingOptions = e => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+    if(e.target.name === 'shippingOption') {
+      setShippingOption(e.target.value);
+    }
+  }
+
+  const setShippingOption = async shippingID => {
+    try {
+      const { live } = await commerce.checkout.checkShippingOption(checkoutTokenID, {
+        shipping_option_id: shippingID || form.shippingOption,
+        country: form.shippingCountry
+      });
+      const { shipping, total } = live;
+      setCart({ shipping, total });
+    } catch(err) {
+      console.log('An error occured');
+    }
+  }
 
   return (
     <>
