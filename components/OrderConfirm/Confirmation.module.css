@@ -1,0 +1,136 @@
+.container {
+  padding: 1.5rem;
+}
+
+.order {
+  width: calc(12/12*100%);
+  border: 1px solid var(--grey-light-colot);
+  background: var(--white-color);
+  border-radius: 5px;
+  box-shadow: var(--shadow-basic);
+  padding: 1rem 2rem;
+  margin: .5rem auto;
+}
+
+.order__header {
+  padding: 1rem;
+  border-bottom: 1px solid var(--grey-light-color);
+}
+
+.order__title_h2 span,
+.order__header p span {
+  color: var(--success-green);
+}
+
+.order__header p {
+  text-align: center;
+}
+
+.order__header p span {
+  font-weight: 600;
+}
+
+.order__title_h2 {
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.order__body {
+  padding: 1rem 0;
+}
+
+.order__list {
+  list-style: none;
+  width: 100%;
+  max-width: 500px;
+}
+
+.order__item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.2rem;
+}
+
+.order__item div {
+  font-weight: 600;
+  line-height: 18px;
+} 
+
+.order__item h5 {
+  color: var(--main-accent);
+  font-size: 1rem;
+}
+
+.order__item span {
+  font-size: .9rem;
+}
+
+.order__shipping {
+  margin-bottom: .2rem;
+}
+
+.divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: .5rem 0;
+}
+
+.divider__line {
+  display: block;
+  width: 100%;
+  height: 1px;
+  background: var(--main-dark);
+}
+
+.divider__title {
+  font-weight: 600;
+  text-transform: uppercase;
+  white-space: nowrap;
+  padding: 0 1rem;
+}
+
+.order__segment {
+  padding: .5rem 1rem;
+  display: inline-block;
+  border: 1px solid #eaeaea;
+  border-radius: 5px;
+  width: 100%;
+}
+
+.order__button {
+  outline: none;
+  border: none;
+  background: var(--main-dark);
+  color: var(--white-color);
+  font-size: 1rem;
+  font-weight: 600;
+  border: 2px solid var(--main-dark);
+  border-radius: 5px;
+  padding: 1rem 1.6rem;
+  margin-top: 1rem;
+  transition: all .4s;
+  cursor: pointer;
+}
+
+.order__button:hover {
+  background: transparent;
+  color: var(--main-dark);
+}
+
+@media (min-width: 768px) {
+  .order {
+    width: calc(8/12*100%);
+  }
+}
+
+@media (min-width: 592px) {
+  .order__header p {
+    text-align: unset;
+  }
+
+  .order__segment {
+    width: unset;
+  }
+}

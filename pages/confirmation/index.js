@@ -1,32 +1,25 @@
-import withAuth from '../../HOC/withAuth';
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useRouter } from 'next/router';
+import withAuth from '../../HOC/withAuth';
+import OrderConfirm from '../../components/OrderConfirm/OrderConfirm';
 
 function Confirmation() {
 
   const router = useRouter();
-  // const [customerReceipt, setCustomerReceipt] = useState(null);
 
-  // useEffect(() => {
-  //   if(!localStorage.getItem('receipt')) router.replace('/');
+  useEffect(() => {
+    const handleRouteChange = (url, { shallow }) => {
+      localStorage.removeItem('receipt');
+    }
 
-  //   const receipt = JSON.parse(localStorage.getItem('receipt'));
-  //   setCustomerReceipt(receipt);
-  // }, []);
+    router.events.on('routeChangeStart', handleRouteChange);
 
-  const removeReceipt = () => {
-    localStorage.removeItem('receipt');
-    router.push('/');
-  };
+    return () => {
+      router.events.off('routeChangeStart', handleRouteChange);
+    }
+  }, []);
 
-  return (
-    <>
-      <p>Hello confirmation</p>
-      <button type="button" onClick={removeReceipt}>
-        Back to home page
-      </button>
-    </>
-  );
+  return <OrderConfirm />;
 };
 
 export default withAuth(Confirmation);

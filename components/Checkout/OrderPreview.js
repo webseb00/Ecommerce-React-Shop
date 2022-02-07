@@ -47,10 +47,13 @@ const OrderPreview = () => {
             <p>{shipping.price.formatted_with_code}</p>
           </div>
         }
-        <div className={styles.total__main}>
-          <p>Total:</p>
-          <p>{calculateTotalCosts()}</p>
-        </div>
+        {
+          shipping &&
+          <div className={styles.total__main}>
+            <p>Total:</p>
+            <p>{calculateTotalCosts()}</p>
+          </div>
+        }
       </div>
     </div>
   )
