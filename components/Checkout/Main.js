@@ -23,6 +23,7 @@ const Main = () => {
   useEffect(() => {
     generateCheckoutToken();
 
+    setLineItems({});
     let lineItems = {};
 
     state.line_items.forEach(item => {
