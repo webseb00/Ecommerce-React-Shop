@@ -1,0 +1,48 @@
+.step {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+.step__item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  width: 100%;
+  max-width: 150px;
+}
+
+.step__line {
+  position: absolute;
+  top: 22.5px;
+  left: 50%;
+  height: 3px;
+  background: grey;
+  width: 100%;
+  z-index: -1;
+}
+
+.step__circle {
+  width: 45px;
+  height: 45px;
+  border: 2px solid var(--success-green);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--success-green);
+  font-size: 1.4rem;
+  margin-bottom: .3rem;
+  background: #FAFAFA;
+}
+
+.fulfilled {
+  background: var(--success-green);
+  color: var(--white-color);
+}
+
+.step__icon svg {
+  display: block;
+  font-size: 1.8rem;
+}

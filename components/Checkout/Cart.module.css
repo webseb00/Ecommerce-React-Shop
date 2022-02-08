@@ -1,5 +1,6 @@
 .content {
   width: 100%;
+  min-width: 630px;
 }
 
 .grid__header,

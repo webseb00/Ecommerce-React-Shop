@@ -1,12 +1,13 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { useCartState, useCartDispatch } from '../../context/cart';
+import { commerce } from '../../lib/commerce';
+import styles from './Checkout.module.css';
 import Cart from './Cart';
 import AddressForm from './AddressForm';
 import Summary from './Summary';
-import styles from './Checkout.module.css';
-import { commerce } from '../../lib/commerce';
 import Wrapper from './Wrapper';
+import StepProgressBar from '../StepProgressBar/StepProgressBar';
 
 const Main = () => {
 
@@ -142,6 +143,8 @@ const Main = () => {
 
   return (
     <div className={styles.container}>
+      {(!!state.total_items && <StepProgressBar currentComponent={counter} steps={[
+        { label: 'Cart' }, { label: 'Form' }, { label: 'Payment' } ]} />)}
       {displayCurrentComponent(counter)}
     </div>
   )
