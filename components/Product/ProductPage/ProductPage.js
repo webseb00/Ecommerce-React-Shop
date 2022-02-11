@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { FaArrowLeft , FaCartPlus } from 'react-icons/fa';
 import { AiOutlineCloseCircle } from 'react-icons/ai';
@@ -10,6 +10,13 @@ import styles from './ProductPage.module.css';
 
 const ProductPage = ({ product }) => {
   const { id, name, price, inventory, description, assets } = product;
+  let isComponentMounted = false;
+
+  useEffect(() => {
+    isComponentMounted = true;
+
+    return () => isComponentMounted = false;
+  }, []);
 
   const [counter, setCounter] = useState(0);
   const [thumbnail, setThumbnail] = useState(assets[counter]);
@@ -70,9 +77,7 @@ const ProductPage = ({ product }) => {
     )
   }
 
-  const handleThumbnail = e => {
-    setThumbnail({ url: e.target.src });
-  }
+  const handleThumbnail = e => setThumbnail({ url: e.target.src });
 
   const ItemGallery = () => {
     return (
@@ -93,19 +98,21 @@ const ProductPage = ({ product }) => {
   const handleAddToCart = async () => {
     const data = await commerce.cart.add(id, 1);
 
-    if(data.success) { 
-      setCart(data.cart);
-      setAlert({
-        show: true,
-        message: `${name} has been added to your cart!`,
-        type: 'success'
-      }); 
-    } else { 
-      setAlert({
-        show: true,
-        message: `An error occured, please try again later.`,
-        type: 'danger'
-      }); 
+    if(isComponentMounted) {
+      if(data.success) { 
+        setCart(data.cart);
+        setAlert({
+          show: true,
+          message: `${name} has been added to your cart!`,
+          type: 'success'
+        }); 
+      } else { 
+        setAlert({
+          show: true,
+          message: `An error occured, please try again later.`,
+          type: 'danger'
+        }); 
+      }
     }
   }
 
