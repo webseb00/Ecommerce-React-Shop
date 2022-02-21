@@ -1,7 +1,7 @@
 import { commerce } from '../../lib/commerce';
 import Wrapper from '../../components/Product/Wrapper';
 
-export async function getStaticProps() {
+export async function getStaticProps(context) {
   const { data: products } = await commerce.products.list({ category_slug: ['bikes'] });
   
   return {

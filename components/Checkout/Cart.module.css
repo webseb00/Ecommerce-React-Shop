@@ -219,6 +219,48 @@
   justify-content: space-between;
 }
 
+.discount {
+  margin-bottom: .6rem;
+}
+
+.discount__box {
+  display: flex;
+}
+
+.discount__submit {
+  font-size: 1rem;
+  padding: .5rem 1.2rem;
+  background: var(--main-dark);
+  color: var(--white-color);
+  cursor: pointer;
+  border: none;
+  border: 1px solid var(--main-dark);
+  transition: all .4s;
+}
+
+.discount__submit:hover {
+  color: var(--main-dark);
+  background: transparent;
+}
+
+.discount__input {
+  padding: .5rem;
+  text-align: center;
+  text-transform: uppercase;
+  border: none;
+  outline: none;
+  border: 1px solid #bdc3c7;
+  font-size: 1rem;
+  flex: 1;
+}
+
+.discount p {
+  color: var(--danger-red);
+  font-size: .8rem;
+  font-weight: 600;
+  margin: 5px 0;
+}
+
 @media (min-width: 992px) {
   .content {
     margin: 0 auto;

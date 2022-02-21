@@ -2,12 +2,12 @@
   padding: 1.5rem;
   display: flex;
   flex-direction: column;
+  justify-content: center;
 }
 
 .container {
   display: flex;
   flex-direction: column;
-  flex-basis: calc((9/12) * 100%);
 }
 
 .container__items {
@@ -22,7 +22,17 @@
     align-items: flex-start;
   }
 
+  .container {
+    flex-basis: calc((10/12) * 100%);
+  }
+
   .container__items {
     justify-content: unset;
+  }
+}
+
+@media (min-width: 1024px) {
+  .container {
+    flex-basis: calc((9/12) * 100%);
   }
 }

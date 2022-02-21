@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import SideNav from './SideNav/SideNav';
 import ProductItem from './ProductItem/ProductItem';
 import Pagination from '../Pagination/Pagination';
 import styles from './Wrapper.module.css';
@@ -28,7 +27,6 @@ const Wrapper = ({ items }) => {
 
   return (
     <div className={styles.wrapper}>
-      <SideNav />
       <div className={styles.container}>
         <div className={styles.container__items}>
           {paginateProducts.map((item, index) => (

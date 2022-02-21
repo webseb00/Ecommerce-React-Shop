@@ -1,5 +1,4 @@
 import Head from 'next/head';
-import { commerce } from '../lib/commerce';
 // Shop Components
 import Hero from '../components/Hero/Hero';
 import Features from '../components/Features/Features';

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { commerce } from '../../lib/commerce';
 import { useForm } from "react-hook-form";
 import { useCartDispatch, useCartState } from '../../context/cart';
@@ -7,10 +7,12 @@ import styles from './Checkout.module.css';
 import button from './Cart.module.css';
 
 const AddressForm = ({ handleStepBackward, handleStepForward, setFormData, formData }) => {
+  
+  const mounted = useRef(false);
 
   const { setCart } = useCartDispatch();
   const state = useCartState();
-  const checkoutTokenID = state.checkoutToken.id;
+  const checkoutTokenID = state.checkoutToken;
 
   const [form, setForm] = useState({
     shippingStateProvince: '',
@@ -47,7 +49,10 @@ const AddressForm = ({ handleStepBackward, handleStepForward, setFormData, formD
   };
 
   useEffect(() => {
+    mounted.current = true;
     fetchShippingCountries(checkoutTokenID);
+
+    return () => mounted.current = false;
   }, []);
   
   useEffect(() => {
@@ -59,33 +64,39 @@ const AddressForm = ({ handleStepBackward, handleStepForward, setFormData, formD
   }, [form.shippingStateProvince]);
   
   const fetchShippingCountries = async checkoutTokenId => {
-    try { 
-      const { countries } = await commerce.services.localeListShippingCountries(checkoutTokenId);
-      setForm({ ...form, shippingCountries: countries, shippingCountry: Object.keys(countries)[0], shippingOptions: [], shippingOption: '' });
-    } catch(err) {
-      console.log('An error occurred');
+    if(mounted.current) {
+      try { 
+        const { countries } = await commerce.services.localeListShippingCountries(checkoutTokenId);
+        setForm({ ...form, shippingCountries: countries, shippingCountry: Object.keys(countries)[0], shippingOptions: [], shippingOption: '' });
+      } catch(err) {
+        console.log('An error occurred');
+      }
     }
   }
     
   const fetchSubdivisions = async countryCode => {
-    try {
-      const { subdivisions } = await commerce.services.localeListSubdivisions(countryCode);
-      setForm({ ...form, shippingSubdivisions: subdivisions, shippingStateProvince: Object.keys(subdivisions)[0] });
-    } catch(err) {
-      console.log('An error occured');
+    if(mounted.current) {
+      try {
+        const { subdivisions } = await commerce.services.localeListSubdivisions(countryCode);
+        setForm({ ...form, shippingSubdivisions: subdivisions, shippingStateProvince: Object.keys(subdivisions)[0] });
+      } catch(err) {
+        console.log('An error occured');
+      }
     }
   }
 
   const fetchShippingOptions = async (checkoutTokenId, country, stateProvince = null) => {
-    try { 
-      const res = await commerce.checkout.getShippingOptions(checkoutTokenId, { 
-        country: country,
-        region: stateProvince
-      });
-      setForm({ ...form, shippingOptions: res, shippingOption: res[0].id });
-      setShippingOption(res[0].id);
-    } catch(err) {
-      console.log('An error occured');
+    if(mounted.current) {
+      try { 
+        const res = await commerce.checkout.getShippingOptions(checkoutTokenId, { 
+          country: country,
+          region: stateProvince
+        });
+        setForm({ ...form, shippingOptions: res, shippingOption: res[0].id });
+        setShippingOption(res[0].id);
+      } catch(err) {
+        console.log('An error occured');
+      }
     }
   }
 
@@ -97,15 +108,17 @@ const AddressForm = ({ handleStepBackward, handleStepForward, setFormData, formD
   }
 
   const setShippingOption = async shippingID => {
-    try {
-      const { live } = await commerce.checkout.checkShippingOption(checkoutTokenID, {
-        shipping_option_id: shippingID || form.shippingOption,
-        country: form.shippingCountry
-      });
-      const { shipping, total } = live;
-      setCart({ shipping, total });
-    } catch(err) {
-      console.log('An error occured');
+    if(mounted.current) {
+      try {
+        const { live } = await commerce.checkout.checkShippingOption(checkoutTokenID, {
+          shipping_option_id: shippingID || form.shippingOption,
+          country: form.shippingCountry
+        });
+        const { shipping, total } = live;
+        setCart({ shipping, total });
+      } catch(err) {
+        console.log('An error occured');
+      }
     }
   }
 

@@ -17,12 +17,11 @@ const Main = () => {
 
   const router = useRouter();
 
-  const { setCheckoutToken, refreshCart, setCart } = useCartDispatch();
+  const { refreshCart, setCart } = useCartDispatch();
   const state = useCartState();
 
   useEffect(() => {
-    generateCheckoutToken();
-
+    if(!state.checkoutToken) generateCheckoutToken();
     setLineItems({});
     let lineItems = {};
 
@@ -36,13 +35,13 @@ const Main = () => {
     });
 
     setLineItems(lineItems);
-  }, []);
+  }, [state, ]);
 
   const generateCheckoutToken = async () => {
     if(state.line_items.length) {
       try {
-        const res = await commerce.checkout.generateToken(state.id, { type: 'cart' });
-        setCheckoutToken(res);
+        const { live, id } = await commerce.checkout.generateToken(state.id, { type: 'cart' });
+        setCart({ ...live, checkoutToken: id });
       } catch(err) {
         console.log('Checkout token ID generation error');
       }
@@ -96,7 +95,7 @@ const Main = () => {
     }
 
     try {
-      const res = await commerce.checkout.capture(state.checkoutToken.id, final);
+      const res = await commerce.checkout.capture(state.checkoutToken, final);
       setOrderProcessing(false);
       refreshCart();
 
@@ -120,7 +119,7 @@ const Main = () => {
             <AddressForm 
               handleStepBackward={handleDecreaseCounter} 
               handleStepForward={handleIncreaseCounter}
-              checkoutTokenID={state.checkoutToken.id} 
+              checkoutTokenID={state.checkoutToken} 
               setFormData={setFormData}
               formData={formData} 
             />

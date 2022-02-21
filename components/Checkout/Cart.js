@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import styles from './Cart.module.css';
 import { useCartDispatch, useCartState } from '../../context/cart';
 import { commerce } from '../../lib/commerce';
@@ -6,11 +7,31 @@ import { BsX, BsEmojiSmile, BsArrowLeft } from 'react-icons/bs';
 
 const Cart = ({ handleStepForward }) => {
   const state = useCartState();
+  const { subtotal, total, discount } = state;
+
   const { setCart } = useCartDispatch();
+  const router = useRouter();
+
+  const [discountCode, setDiscount] = useState('');
+  const [noDiscountCode, setNoDiscountCode] = useState(false);
+
+  const handleDiscountCode = async () => {
+    if(!discountCode) {
+      setNoDiscountCode(!noDiscountCode);
+      return false;
+    } else {
+      const res = await commerce.checkout.checkDiscount(state.checkoutToken, { code: discountCode });
+      if(!res.valid) { 
+        return false;
+      } else {
+        setNoDiscountCode(null);
+        const { total, subtotal, discount } = res.live;
+        setCart({ total, subtotal, discount});
+      }
+    }
+  }
 
   const handleUpdateCart = cart => setCart(cart);
-
-  const router = useRouter();
   
   const handleDelete = async id => {
     const { cart } = await commerce.cart.remove(id);
@@ -18,14 +39,14 @@ const Cart = ({ handleStepForward }) => {
   }
 
   const increaseQuantity = async (id, quantity) => {
-    const { cart } = await commerce.cart.update(id, { quantity: quantity + 1 });
-    handleUpdateCart(cart);
+    const { live } = await commerce.checkout.checkQuantity(state.checkoutToken, id, { amount: quantity + 1 });
+    handleUpdateCart(live);
   }
 
   const decreaseQuantity = async (id, quantity) => {
     if(quantity > 1) {
-      const { cart } = await commerce.cart.update(id, { quantity: quantity - 1 });
-      handleUpdateCart(cart);
+      const { live } = await commerce.checkout.checkQuantity(state.checkoutToken, id, { amount: quantity - 1 });
+      handleUpdateCart(live);
     } else {
       handleDelete(id);
     }
@@ -87,19 +108,35 @@ const Cart = ({ handleStepForward }) => {
           </div> 
           <div className={styles.total}>
             <div className={styles.total__top}>
+              <div className={styles.discount}>
+                <div className={styles.discount__box}>
+                  <button type="button" className={styles.discount__submit} onClick={handleDiscountCode}>Apply</button>
+                  <input 
+                    type="text" 
+                    name="discount" 
+                    value={discountCode} 
+                    className={styles.discount__input} 
+                    onChange={e => setDiscount(e.target.value)} 
+                    placeholder="BD78034500" 
+                  />
+                </div>
+                {noDiscountCode && <p>Discount code not entered</p>}
+              </div>
               <div className={styles.total__sub}>
                 <p>Subtotal:</p>
-                <span className={styles.total__price}>{state.subtotal.formatted_with_code}</span>
+                <span className={styles.total__price}>{subtotal.formatted_with_code}</span>
               </div>
               <div className={styles.total__sub}>
                 <p>Discount:</p>
-                <span className={styles.total__price}>-</span>
+                <span className={styles.total__price}>
+                  {discount.amount_saved?.formatted_with_code || '-'}
+                </span>
               </div>
             </div>
             <div className={styles.total__bottom}>
               <div className={styles.total__sub}>
-                <p>Subtotal:</p>
-                <span className={styles.total__price}>{state.subtotal.formatted_with_code}</span>  
+                <p>Total:</p>
+                <span className={styles.total__price}>{total.formatted_with_code}</span>  
               </div>
             </div>
           </div>  

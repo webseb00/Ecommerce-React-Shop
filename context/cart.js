@@ -8,11 +8,12 @@ const SET_CART = 'SET_CART';
 const SET_CHECKOUT_TOKEN = 'SET_CHECKOUT_TOKEN';
 
 const initialState = {
-  checkoutToken: {},
+  checkoutToken: null,
   total_items: 0,
   total_unique_items: 0,
   line_items: [],
-  total: 0
+  total: 0,
+  discount: []
 }
 
 const reducer = (state, action) => {

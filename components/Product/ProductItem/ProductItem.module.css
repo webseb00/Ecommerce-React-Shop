@@ -1,5 +1,6 @@
 .item {
   text-align: center;
+  flex-basis: calc(11/12 * 100% - 10px);
   max-width: 24rem;
   width: 100%;
   padding: 2rem 1rem;
@@ -42,6 +43,18 @@
 .item__button:hover {
   color: #34495e;
   background: transparent;
+}
+
+@media (min-width: 468px) {
+  .item {
+    flex-basis: calc(8/12 * 100% - 10px);
+  }
+}
+
+@media (min-width: 568px) {
+  .item {
+    flex-basis: calc(6/12 * 100% - 10px);
+  }
 }
 
 @media (min-width: 768px) {
