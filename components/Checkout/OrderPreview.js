@@ -6,7 +6,8 @@ import Image from 'next/image';
 const OrderPreview = () => {
 
   const state = useCartState();
-  const { subtotal, shipping, discount, total } = state;
+  const { subtotal, shipping, discount, total, currency } = state;
+  const calculateTotals = () => `${(subtotal.raw + shipping.price.raw).toFixed(2)} ${currency.code}`;
 
   return (
     <div className={styles.wrapper}>
@@ -38,10 +39,10 @@ const OrderPreview = () => {
           <p>Subtotal:</p>
           <p>{subtotal.formatted_with_code}</p>
         </div>
-        <div className={styles.total__sub}>
+        {/* <div className={styles.total__sub}>
           <p>Discount:</p>
           <p>{discount.amount_saved?.formatted_with_code || '-'}</p>
-        </div>
+        </div> */}
         {
           shipping && 
           <div className={styles.total__sub}>
@@ -53,7 +54,7 @@ const OrderPreview = () => {
           shipping &&
           <div className={styles.total__main}>
             <p>Total:</p>
-            <p>{total.formatted_with_code}</p>
+            <p>{calculateTotals()}</p>
           </div>
         }
       </div>

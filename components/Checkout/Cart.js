@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styles from './Cart.module.css';
 import { useCartDispatch, useCartState } from '../../context/cart';
 import { commerce } from '../../lib/commerce';
@@ -9,47 +9,45 @@ const Cart = ({ handleStepForward }) => {
   const state = useCartState();
   const { subtotal, total, discount } = state;
 
-  const { setCart } = useCartDispatch();
+  const { setCart, setCheckoutToken, refreshCart } = useCartDispatch();
   const router = useRouter();
 
   const [discountCode, setDiscount] = useState('');
   const [noDiscountCode, setNoDiscountCode] = useState(false);
 
-  const handleDiscountCode = async () => {
-    if(!discountCode) {
-      setNoDiscountCode(!noDiscountCode);
-      return false;
-    } else {
-      const res = await commerce.checkout.checkDiscount(state.checkoutToken, { code: discountCode });
-      if(!res.valid) { 
-        return false;
-      } else {
-        setNoDiscountCode(null);
-        const { total, subtotal, discount } = res.live;
-        setCart({ total, subtotal, discount});
-      }
-    }
-  }
+  // const handleDiscountCode = async () => {
+  //   if(!discountCode) {
+  //     setNoDiscountCode(!noDiscountCode);
+  //     return false;
+  //   } else {
+  //     const res = await commerce.checkout.checkDiscount(state.checkoutToken, { code: discountCode });
+  //     if(!res.valid) { 
+  //       return false;
+  //     } else {
+  //       setNoDiscountCode(null);
+  //       const { live: { discount, total, subtotal } } = res;
+  //       setCart({ discount, total, subtotal });
+  //     }
+  //   }
+  // }
 
   const handleUpdateCart = cart => setCart(cart);
   
   const handleDelete = async id => {
     const { cart } = await commerce.cart.remove(id);
     handleUpdateCart(cart);
+    if(state.total_items === 0) setCheckoutToken(null);
   }
 
   const increaseQuantity = async (id, quantity) => {
-    const { live } = await commerce.checkout.checkQuantity(state.checkoutToken, id, { amount: quantity + 1 });
-    handleUpdateCart(live);
+    const { cart } = await commerce.cart.update(id, { quantity: quantity+1 });
+    handleUpdateCart(cart);
   }
 
   const decreaseQuantity = async (id, quantity) => {
-    if(quantity > 1) {
-      const { live } = await commerce.checkout.checkQuantity(state.checkoutToken, id, { amount: quantity - 1 });
-      handleUpdateCart(live);
-    } else {
-      handleDelete(id);
-    }
+    const { cart } = await commerce.cart.update(id, { quantity: quantity-1 });
+    if(cart.line_items < 1) { handleDelete(id); }
+    handleUpdateCart(cart);
   }
 
   const handleClearCart = async () => {
@@ -108,7 +106,7 @@ const Cart = ({ handleStepForward }) => {
           </div> 
           <div className={styles.total}>
             <div className={styles.total__top}>
-              <div className={styles.discount}>
+              {/* <div className={styles.discount}>
                 <div className={styles.discount__box}>
                   <button type="button" className={styles.discount__submit} onClick={handleDiscountCode}>Apply</button>
                   <input 
@@ -121,7 +119,7 @@ const Cart = ({ handleStepForward }) => {
                   />
                 </div>
                 {noDiscountCode && <p>Discount code not entered</p>}
-              </div>
+              </div> */}
               <div className={styles.total__sub}>
                 <p>Subtotal:</p>
                 <span className={styles.total__price}>{subtotal.formatted_with_code}</span>
@@ -136,7 +134,7 @@ const Cart = ({ handleStepForward }) => {
             <div className={styles.total__bottom}>
               <div className={styles.total__sub}>
                 <p>Total:</p>
-                <span className={styles.total__price}>{total.formatted_with_code}</span>  
+                <span className={styles.total__price}>{subtotal.formatted_with_code}</span>  
               </div>
             </div>
           </div>  

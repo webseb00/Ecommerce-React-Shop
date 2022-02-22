@@ -35,7 +35,7 @@ const Main = () => {
     });
 
     setLineItems(lineItems);
-  }, [state, ]);
+  }, []);
 
   const generateCheckoutToken = async () => {
     if(state.line_items.length) {

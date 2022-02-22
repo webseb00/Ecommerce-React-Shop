@@ -46,9 +46,9 @@ const OrderConfirm = () => {
           <div className={styles.order__shipping}>
             <p><b>Shipping:</b> {customerReceipt.order.shipping.price.formatted_with_code}</p>
           </div>
-          <div className={styles.order__shipping}>
+          {/* <div className={styles.order__shipping}>
             <p><b>Discount:</b> {customerReceipt.order.discount.amount_saved?.formatted_with_code || '-'}</p>
-          </div>
+          </div> */}
           <div className={styles.order__total}>
             <p><b>Total costs:</b> {customerReceipt.order.total.formatted_with_code}</p>
           </div>  
